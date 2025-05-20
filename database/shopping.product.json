@@ -1,0 +1,64 @@
+[{
+  "_id": {
+    "$oid": "67b5f25e2df20b476fc78a55"
+  },
+  "Name": "Brazil",
+  "Description": "Brazil national football team 2018 World Cup Nike Jersey, nike, tshirt, jersey, active Shirt",
+  "Price": 699
+},
+{
+  "_id": {
+    "$oid": "67cc10c260c9e9b75554333d"
+  },
+  "Name": "Real Madrid",
+  "Description": "Real Madrid C.F. T-shirt Jersey Football Kit , T-shirt, tshirt, white shirt",
+  "Price": 499
+},
+{
+  "_id": {
+    "$oid": "67cc117060c9e9b75554333e"
+  },
+  "Name": "FC Barcelona",
+  "Description": "FC Barcelona T-shirt Jersey Nike, FCB, tshirt, navy Blue, T-Shirt , active Shirt",
+  "Price": 599
+},
+{
+  "_id": {
+    "$oid": "67cc83cb7155a9d1a59d93dd"
+  },
+  "Name": "Arsenal F.C.",
+  "Description": "Arsenal F.C. Premier League Jersey Kit Shirt, JERSEY, tshirt, blue, team",
+  "Price": 599
+},
+{
+  "_id": {
+    "$oid": "67cc841e7155a9d1a59d93de"
+  },
+  "Name": "Chelsea F.C.",
+  "Description": "Chelsea F.C. UEFA Euro 2016 T-shirt Premier League Jersey, T-shirt, tshirt, blue, active Shirt",
+  "Price": 699
+},
+{
+  "_id": {
+    "$oid": "67cc84567155a9d1a59d93df"
+  },
+  "Name": "Manchester",
+  "Description": "Manchester United F.C. Old Trafford Premier League Third jersey, manchester united, tshirt, sport",
+  "Price": 799
+},
+{
+  "_id": {
+    "$oid": "682c36aa4a7a772241a32377"
+  },
+  "Name": "A.C. Milan ",
+  "Description": "A.C. Milan T-shirt UEFA Champions League Jersey Kit, JERSEY, tshirt, sport",
+  "Price": 599
+},
+{
+  "_id": {
+    "$oid": "682c373c4a7a772241a32378"
+  },
+  "Name": "Liverpool F.C",
+  "Description": "Liverpool F.C. T-shirt Premier League Jersey, Egypt national football, tshirt, logo, active Shirt",
+  "Price": 499
+}]

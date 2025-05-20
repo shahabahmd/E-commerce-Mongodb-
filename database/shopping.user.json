@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "67cbeb07cc80c49b989d427e"
+  },
+  "Name": "shahabahamed",
+  "Email": "shahabahamed356@gmail.com",
+  "Password": "$2b$10$eslRAHtep1aGvR7VTpsn2OkmgPiORNNL.6WhHguY20RqQpWP6jVui"
+},
+{
+  "_id": {
+    "$oid": "67cc13ab60c9e9b75554333f"
+  },
+  "Name": "adhit",
+  "Email": "adhit@gmail.com",
+  "Password": "$2b$10$WvBV1Aal2gOR.blg95OVxu9mdtDOT3k0LJKhiLzYY6zAWB1QWTKNK"
+},
+{
+  "_id": {
+    "$oid": "67d083c370be6746a0ae257f"
+  },
+  "Name": "sooraj",
+  "Email": "sooraj@gmail.com",
+  "Password": "$2b$10$W1PonfoBhKWUNDOenV/34OSczBn6p.cNyBGGT4uMgFBFGmfADK2vW"
+},
+{
+  "_id": {
+    "$oid": "67d28fde7caccc81600b1a7e"
+  },
+  "Name": "sooraj",
+  "Email": "abc@gmail.com",
+  "Password": "$2b$10$8LZPXtgjrproGRYGRs/lTudgGcCcwGRDKbbDYHzt3HkSVW6C.jATu"
+},
+{
+  "_id": {
+    "$oid": "67e425f87ac7b5219dcac475"
+  },
+  "Name": "anjana",
+  "Email": "anjana@gmail.com",
+  "Password": "$2b$10$vL4pytIDEAP65PVJu19A..bbpSLHMKr4V.3xR1XJzUi64JyaC12vq"
+}]

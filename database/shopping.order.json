@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "682c33524a7a772241a32376"
+  },
+  "deliveryDetails": {
+    "mobile": "9778041586",
+    "address": "Chirakkara, Thalassery",
+    "pincode": "670104"
+  },
+  "userId": {
+    "$oid": "67cbeb07cc80c49b989d427e"
+  },
+  "paymentMethod": "ONLINE",
+  "products": [
+    {
+      "item": {
+        "$oid": "67b5f25e2df20b476fc78a55"
+      },
+      "quantity": 2,
+      "rating": 5
+    }
+  ],
+  "totalAmount": 1398,
+  "status": "delivered",
+  "date": {
+    "$date": "2025-05-20T07:46:26.075Z"
+  }
+}]
