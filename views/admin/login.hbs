@@ -1,0 +1,104 @@
+<section class="login-section">
+    <div class="login-card">
+        <h2 class="text-center mb-4 text-white"> Admin Login</h2>
+
+        {{#if loginErr}}
+            <div class="alert alert-danger text-center shadow-sm">
+                ⚠️ {{loginErr}}
+            </div>
+        {{/if}}
+
+        <form action="/admin/login" method="POST">
+            <div class="form-group text-left">
+                <label for="email" class="form-label text-white text-start">Email</label>
+
+                <input type="email" name="email" id="email" class="form-control custom-input" required>
+            </div>
+
+            <div class="form-group text-left">
+                <label for="password" class="form-label text-white"> Password</label>
+                <input type="password" name="password" id="password" class="form-control custom-input" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100"> Login</button>
+        </form>
+    </div>
+</section>
+
+<!-- Custom CSS -->
+<style>
+    /* 🔹 Full-Page Centering */
+    html, body {
+        height: 100%;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 🔹 Login Box Centering */
+    .login-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh; /* Ensures full vertical centering */
+    }
+
+    .login-card {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    /* 🔹 Make All Labels & Headings White */
+    .text-white {
+        color: white !important;
+    }
+
+    /* 🔹 Input Fields with Animation */
+    .custom-input {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 10px;
+        border-radius: 6px;
+        outline: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .custom-input:focus {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.4);
+    }
+
+    /* 🔹 Styled Button */
+    .btn-primary {
+        background: #007bff;
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+
+    .btn-primary:hover {
+        background: #0056b3;
+        opacity: 0.9;
+    }
+
+    /* 🔹 Alert Box */
+    .alert-danger {
+        background: rgba(255, 0, 0, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 0, 0, 0.5);
+    }
+</style>

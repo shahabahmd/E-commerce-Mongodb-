@@ -1,0 +1,141 @@
+<section class="orders-section">
+    <div class="container">
+        <h1 class="text-center my-4">📦 View Pending Orders</h1>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped align-middle shadow-sm" id="ordersTable">
+                <thead>
+                    <tr class="text-center">
+                        <th>Order ID</th>
+                        <th>User Name</th>
+                        <th>User ID</th>
+                        <th>Total Amount</th>
+                        <th>Payment Method</th>
+                        <th>Status</th>
+                       
+                        <th>Date</th>
+                        <th>Action</th> <!-- ✅ Added Action Column -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each orders}}
+                    <tr>
+                        <td class="table-text">{{this._id}}</td>
+                        <td class="table-text">{{this.userName}}</td>
+                        <td class="table-text">{{this.userId}}</td>
+                        <td class="text-success fw-bold">₹{{this.totalAmount}}</td>
+                        <td class="table-text">{{this.paymentMethod}}</td>
+                        <td id="status-{{this._id}}" class="status-badge">{{this.status}}</td>
+                      
+                        <td class="table-text">{{this.date}}</td>
+                        <td id="btn-cell-{{this._id}}">
+                            {{#if (eq this.status "placed")}}
+                                <button class="btn btn-primary btn-sm" onclick="updateStatus('{{this._id}}')">Mark as Delivered</button>
+                            {{else}}
+                                <span class="text-success fw-bold">✔ Delivered</span>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center my-3">
+    <a href="/admin/delivered-orders" class="btn btn-success">📦 View Delivered Orders</a>
+</div>
+
+    </div>
+</section>
+
+<script>
+    function updateStatus(orderId) {
+        fetch(`/admin/update-order-status/${orderId}`, {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById(`status-${orderId}`).innerText = "delivered";
+                document.getElementById(`delivery-status-${orderId}`).innerHTML = "<span class='text-success fw-bold'>✔ Delivered</span>";
+                document.getElementById(`btn-cell-${orderId}`).innerHTML = "<span class='text-success fw-bold'>✔ Delivered</span>";
+            } else {
+                alert("Failed to update status");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    $(document).ready(function () {
+        $('#ordersTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "columnDefs": [
+                { "orderable": false, "targets": [6, 8] } // Disable sorting on Delivery Status and Action column
+            ]
+        });
+    });
+</script>
+
+<!-- ✅ Custom CSS -->
+<style>
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+
+    .orders-section {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 50px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        margin-top: 50px;
+    }
+
+    thead {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        text-transform: uppercase;
+    }
+
+    .table-text {
+        color: white;
+        word-wrap: break-word;
+        max-width: 300px;
+    }
+
+    .status-badge {
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 5px 10px;
+        border-radius: 6px;
+        text-align: center;
+    }
+
+    .status-badge:contains("Pending") {
+        background: orange;
+        color: black;
+    }
+
+    .status-badge:contains("Completed") {
+        background: green;
+        color: white;
+    }
+
+    .status-badge:contains("Cancelled") {
+        background: red;
+        color: white;
+    }
+
+    .delivery-status {
+        font-weight: bold;
+    }
+
+    .table-hover tbody tr:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+</style>

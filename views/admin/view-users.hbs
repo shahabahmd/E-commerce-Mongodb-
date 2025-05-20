@@ -1,0 +1,78 @@
+<section class="user-section">
+    <div class="container">
+        <h1 class="text-center my-3">👥 All Users</h1>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped align-middle shadow-sm" id="usersTable">
+                <thead>
+                    <tr class="text-center">
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr>
+                        <td class="table-text">{{this._id}}</td>
+                        <td class="table-text">{{this.Name}}</td>
+                        <td class="table-text">{{this.Email}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- jQuery and DataTables -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+<!-- DataTable Script -->
+<script>
+    $(document).ready(function () {
+        $('#usersTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true
+        });
+    });
+</script>
+
+<!-- Custom CSS -->
+<style>
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+
+    .user-section {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 50px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        margin-top: 50px;
+    }
+
+    thead {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        text-transform: uppercase;
+    }
+
+    .table-text {
+        color: #f8f9fa; /* Light gray for better readability */
+        word-wrap: break-word;
+        max-width: 300px;
+    }
+
+    .table-hover tbody tr:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+</style>

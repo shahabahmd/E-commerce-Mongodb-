@@ -1,0 +1,185 @@
+<section class="product-form-section">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="row justify-content-center w-100">
+            <div class="col-lg-5 col-md-7 col-sm-9">
+                <div class="card shadow-lg p-4">
+                    <h2 class="text-center mb-4 text-white fw-bold">✏️ Edit Product</h2>
+                    <form action="/admin/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
+                        
+                        <div class="form-floating mb-3">
+                              <label for="Name">📦 Product Name</label>
+                            <input type="text" name="Name" class="form-control custom-input" value="{{product.Name}}" required>
+                          
+                        </div>
+
+                        <div class="form-floating mb-3">
+                                    <label for="Description">📝 Product Description</label>
+                            <textarea name="Description" class="form-control custom-input" rows="2" required>{{product.Description}}</textarea>
+                    
+                        </div>
+
+                        <div class="form-floating mb-3">
+                             <label for="Price">💰 Product Price</label>
+                            <input type="number" id="Price" name="Price" class="form-control custom-input" value="{{product.Price}}" required>
+                           
+                        </div>
+
+                        <!-- 🔹 Image Preview -->
+                        <div class="mb-3 text-center">
+                            <label class="form-label text-white fw-semibold">🖼️ Current Product Image</label><br>
+                            <img src="/product-images/{{product._id}}.jpg" alt="Product Image" id="imgView" class="img-preview mt-2">
+                        </div>
+
+                        <!-- 🔹 Custom File Upload Button -->
+                        <div class="mb-3">
+                            <label class="form-label text-white fw-semibold">📂 Upload New Image</label>
+                            <div class="custom-file-upload">
+                                <input type="file" name="Image" id="Image" class="custom-file-input" onchange="viewImage(event)">
+                                <label for="Image" class="btn btn-upload">📂 Choose File</label>
+                                <span id="file-name" class="file-name">No file chosen</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-glow w-100 mt-3">✅ Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Custom CSS -->
+<style>
+    /* 🔹 Full-Page Background & Centering */
+    html, body {
+        height: 100%;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        color: white;
+    }
+
+    /* 🔹 Centering the Section Properly */
+    .product-form-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .min-vh-100 {
+        min-height: 100vh;
+    }
+
+    /* 🔹 Glassmorphism Card */
+    .card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 10px;
+    }
+
+    /* 🔹 Input Fields */
+    .custom-input {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 16px;
+        color: white;
+    }
+
+    .custom-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .custom-input:focus {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.4);
+    }
+
+    /* 🔹 Floating Labels */
+    .form-floating label {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* 🔹 Image Preview */
+    .img-preview {
+        width: 120px;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3);
+    }
+
+    /* 🔹 Custom File Upload Styling */
+    .custom-file-upload {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .custom-file-input {
+        display: none;
+    }
+
+    .btn-upload {
+        background: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .btn-upload:hover {
+        background: #0056b3;
+    }
+
+    .file-name {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* 🔹 Custom Submit Button */
+    .btn-glow {
+        background: linear-gradient(45deg, #00d4ff, #007bff);
+        font-size: 18px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        color: white;
+        font-weight: bold;
+        padding: 12px;
+        border: none;
+    }
+
+    .btn-glow:hover {
+        background: linear-gradient(45deg, #00a3cc, #0056b3);
+        box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    }
+
+    /* 🔹 Responsive Fixes */
+    @media (max-width: 768px) {
+        .card {
+            padding: 20px;
+        }
+
+        .btn-glow {
+            font-size: 16px;
+        }
+    }
+</style>
+
+<!-- JavaScript to Display File Name & Image Preview -->
+<script>
+    function viewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            document.getElementById("imgView").src = URL.createObjectURL(file);
+            document.getElementById("file-name").textContent = file.name;
+        } else {
+            document.getElementById("file-name").textContent = "No file chosen";
+        }
+    }
+</script>

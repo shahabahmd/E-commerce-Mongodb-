@@ -1,0 +1,159 @@
+<!--<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Shopping Cart</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart">Cart <span class="badge badge-success" id="cart-count">{{cartCount}}</span></a>
+                    </li>
+                    {{#if user}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders">Orders</a>
+                    </li>
+                    {{/if}}
+                </ul> 
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="accountDropdown" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        {{#if user}}
+                        {{user.Name}}
+                        {{else}}
+                        Account
+                        {{/if}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                        {{#if user}}
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                        {{else}}
+                        <a class="dropdown-item" href="/login">Login</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>-->
+
+<!-- Centered Login Form -->
+<div class="d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container login-container p-4">
+        <h2 class=" text-light fw-bold"> Login</h2>
+
+        <form action="/login" method="POST">
+            {{#if loginErr}}
+            <p class="error-message ">{{loginErr}}</p>
+            {{/if}}
+
+            <div class="form-group text-left">
+    <label for="email" class="text-light">Email address</label>
+    <input type="email" class="form-control custom-input" name="Email" id="email" placeholder="Enter email" required>
+</div>
+
+<div class="form-group text-left">
+    <label for="password" class="text-light">Password</label>
+    <input type="password" class="form-control custom-input" name="Password" id="password" placeholder="Enter password" required>
+</div>
+
+
+            <div class="text-left">
+    <a href="/signup" class="text-info">Create new account?</a>
+</div>
+
+            <button type="submit" class="btn btn-glow float-right"> Login</button>
+        </form>
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    /* 🔹 General Styling */
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 🔹 Navbar */
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    /* 🔹 Login Container */
+    .login-container {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+    }
+label {
+    text-align: left !important;
+    display: block;  /* Ensures it takes full width */
+}
+
+    /* 🔹 Input Fields */
+    .custom-input {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 10px;
+        border-radius: 6px;
+        outline: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .custom-input:focus {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.4);
+    }
+
+    /* 🔹 Submit Button */
+    .btn-glow {
+        background: linear-gradient(45deg, #00d4ff, #007bff);
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 10px;
+        border: none;
+        color: white;
+        transition: 0.3s;
+    }
+
+    .btn-glow:hover {
+        background: linear-gradient(45deg, #00a3cc, #0056b3);
+        box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    }
+
+    /* 🔹 Error Message */
+    .error-message {
+        background: rgba(255, 0, 0, 0.2);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* 🔹 Centering */
+    .min-vh-100 {
+        min-height: 100vh;
+    }
+</style>

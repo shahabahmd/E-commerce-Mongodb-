@@ -1,0 +1,89 @@
+<div class="d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container signup-container p-4">
+        <h2 class="text-center text-light fw-bold"> Create New Account</h2>
+
+        <form action="/signup" method="POST">
+            <div class="form-group text-left">
+                <label for="name" class="text-light">Name</label>
+                <input type="text" class="form-control custom-input" name="Name" id="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group text-left">
+                <label for="email" class="text-light">Email Address</label>
+                <input type="email" class="form-control custom-input" name="Email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group text-left">
+                <label for="password" class="text-light">Password</label>
+                <input type="password" class="form-control custom-input" name="Password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <div class="text-left">
+    <a href="/login" class="text-info">Already have an account?</a>
+</div>
+
+            <button type="submit" class="btn btn-glow float-right"> Signup</button>
+        </form>
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    /* General Styling */
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Signup Container */
+    .signup-container {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Input Fields */
+    .custom-input {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 10px;
+        border-radius: 6px;
+        outline: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .custom-input:focus {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.4);
+    }
+
+    /* Submit Button */
+    .btn-glow {
+        background: linear-gradient(45deg, #00d4ff, #007bff);
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 10px;
+        border: none;
+        color: white;
+        transition: 0.3s;
+    }
+
+    .btn-glow:hover {
+        background: linear-gradient(45deg, #00a3cc, #0056b3);
+        box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    }
+
+    /* Centering */
+    .min-vh-100 {
+        min-height: 100vh;
+    }
+</style>

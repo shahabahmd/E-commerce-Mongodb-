@@ -1,0 +1,195 @@
+<section class="cart-section">
+    <div class="container">
+        {{#if cartEmpty}}
+            <h3 class="text-center mt-5 text-light">🛒 Your Cart is Empty!</h3>
+            <div class="text-center mt-3">
+                <a href="/products" class="btn btn-glow">🛍️ Shop Now</a>
+            </div>
+        {{else}}
+            <table class="table cart-table mt-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each products}}
+                    <tr>
+                        <td><img class="cart-img" src="/product-images/{{this.product._id}}.jpg" alt="{{this.product.Name}}"> </td>
+                        <td class="text-light">{{this.product.Name}}</td>
+                        <td class="cart-price">₹{{this.product.Price}}</td>
+                        <td>
+                            <button class="cart-btn" onclick="changeQuantity('{{this._id}}', '{{this.product._id}}', '{{../user}}', -1)">−</button>
+                            <span id="{{this.product._id}}" class="cart-quantity">{{this.quantity}}</span>
+                            <button class="cart-btn" onclick="changeQuantity('{{this._id}}', '{{this.product._id}}', '{{../user}}', 1)">+</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger remove-btn" onclick="removeFromCart('{{this._id}}', '{{this.product._id}}')">🗑 Remove</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <hr class="cart-divider">
+            <div class="total-container">
+                <h3 class="total-text">Total: ₹<span id="total">{{totalValue}}</span></h3>
+                <a href="/place-order" class="btn btn-success btn-glow mt-3 w-100"><b>✔ Place Order</b></a>
+            </div>
+        {{/if}}
+    </div>
+</section>
+
+<!-- Custom CSS -->
+<style>
+    /* 🔹 Background */
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+
+    /* 🔹 Cart Section */
+    .cart-section {
+        padding: 50px 0;
+    }
+
+    /* 🔹 Cart Table */
+    .cart-table {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+
+    .cart-table thead th {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        text-align: center;
+    }
+
+    .cart-table tbody td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    /* 🔹 Product Image */
+    .cart-img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* 🔹 Cart Price */
+    .cart-price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #f8b400;
+    }
+
+    /* 🔹 Quantity Controls */
+    .cart-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        font-size: 20px;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+    }
+
+    .cart-btn:hover {
+        background: rgba(255, 255, 255, 0.4);
+    }
+
+    .cart-quantity {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0 10px;
+    }
+
+    /* 🔹 Remove Button */
+    .remove-btn {
+        padding: 6px 15px;
+        border-radius: 8px;
+    }
+
+    /* 🔹 Total Section */
+    .total-container {
+        text-align: right;
+        padding: 20px 40px;
+    }
+
+    .total-text {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    /* 🔹 Place Order Button */
+    .btn-glow {
+        background: linear-gradient(45deg, #00d4ff, #007bff);
+        font-size: 18px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        color: white;
+        font-weight: bold;
+        padding: 12px;
+        border: none;
+    }
+
+    .btn-glow:hover {
+        background: linear-gradient(45deg, #00a3cc, #0056b3);
+        box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    }
+</style>
+
+<!-- JavaScript -->
+<script>
+    function changeQuantity(cartId, proId, userId, count) {
+        let quantity = parseInt(document.getElementById(proId).innerHTML);
+        count = parseInt(count);
+        
+        $.ajax({
+            url: '/change-product-quantity',
+            data: {
+                user: userId,
+                cart: cartId,
+                product: proId,
+                count: count,
+                quantity: quantity
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.removeProduct) {
+                    alert("Product removed from cart");
+                    location.reload();
+                } else {
+                    document.getElementById(proId).innerHTML = quantity + count;
+                    document.getElementById('total').innerHTML = response.total;
+                }
+            }
+        });
+    }
+
+    function removeFromCart(cartId, productId) {
+        $.ajax({
+            url: '/remove-cart-item',
+            method: 'POST',
+            data: { cartId: cartId, productId: productId },
+            success: (response) => {
+                if (response.success) {
+                    alert("Item removed from cart");
+                    location.reload();
+                } else {
+                    alert("Failed to remove item");
+                }
+            }
+        });
+    }
+</script>

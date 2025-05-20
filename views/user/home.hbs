@@ -1,0 +1,128 @@
+
+<setion>
+  <div class="header">
+       
+        <div class="row">
+            <div class="col-2">
+                <h1>
+                    Performance Begins <br>With The Right Fit !
+                </h1>
+                <p>
+                    In sports, success isn’t about talent alone; it’s about persistence.<br><br>Consistent effort builds skill, and greatness will follow.
+                </p>
+                <a href="\products" class="btn">Explore Now &#8594; </a>
+            </div>
+            <div class="col-2">
+                <img src="\images\home.png">
+            </div>
+        </div>
+    </div>   
+</setion>
+  <style>/* General reset for margin and padding */
+/* 🔹 Header Section Styling */
+.header {
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    padding: 60px 0;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+/* 🔹 Row Styling */
+.row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1300px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* 🔹 Left Column (Text Content) */
+.col-2 {
+    flex-basis: 30%;
+    min-width: 550px;
+    padding-left: 30px;
+}
+
+.col-2 h1 {
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    color: #ffffff;
+}
+
+.col-2 p {
+    font-size: 18px;
+    color: #ffffff;
+
+    margin-bottom: 20px;
+}
+
+/* 🔹 Explore Button */
+   .btn {
+        background: linear-gradient(45deg, #00d4ff, #007bff);
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        color: white;
+        font-weight: bold;
+        padding: 10px;
+        border: none;
+    }
+
+
+.btn:hover {
+        background: linear-gradient(45deg, #00a3cc, #0056b3);
+        box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    }
+
+/* 🔹 Right Column (Image) */
+.col-2 img {
+    max-width: 120%; /* Prevents excessive enlargement */
+    width: 900px;  /* Ensures a balanced layout */
+    height: auto;
+    display: block;
+    padding: 20px;
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Align image to the right */
+.img-right {
+    float: right;
+    margin-left: 10px;
+}
+
+/* 🔹 Image Hover Effect */
+.col-2 img:hover {
+    transform: scale(1.05);
+}
+
+/* 🔹 Responsive Design */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column-reverse; /* Image below text */
+        text-align: center;
+    }
+
+    .col-2 {
+        padding: 20px;
+    }
+
+    .col-2 h1 {
+        font-size: 36px;
+    }
+
+    .col-2 p {
+        font-size: 16px;
+    }
+
+    .col-2 img {
+        width: 80%; /* Make image smaller for mobile */
+        margin: auto;
+    }
+}
+</style>

@@ -1,0 +1,183 @@
+<section class="checkout-section">
+    <div class="container mt-5">
+        <form action="" id="checkout-form">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-light"> Enter Delivery Details</h2><br>
+                    <div class="form-group">
+                        <label for="address" class="text-light"> Address</label>
+                        <input class="form-control" type="text" id="address" name="address">
+                        <small class="text-danger" id="addressError"></small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pincode" class="text-light"> Pincode</label>
+                        <input class="form-control" type="text" id="pincode" name="pincode">
+                        <small class="text-danger" id="pincodeError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile" class="text-light"> Mobile</label>
+                        <input class="form-control" type="text" id="mobile" name="mobile">
+                        <small class="text-danger" id="mobileError"></small>
+                    </div>
+
+                    <input type="hidden" name="userId" value="{{user._id}}">
+                </div>
+
+                <div class="col-md-4">
+                    <div class="container mt-5 checkout-box">
+                        <h5 class="text-light"> Total Amount: ₹{{total}}</h5>
+                        <hr class="text-light">
+                        <div class="payment">
+                            <p class="text-light">💳 Payment Method</p>
+                            <label class="radio-inline text-light">
+                                <input type="radio" name="payment-method" value="COD" checked> Cash on Delivery (COD)
+                            </label>
+                            <label class="radio-inline text-light mt-2">
+                                <input type="radio" name="payment-method" value="ONLINE"> Online Payment
+                            </label>
+                            <small class="text-danger" id="paymentError"></small>
+                            <button class="btn btn-glow float-right" type="submit">🛒 Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Custom JavaScript Validation -->
+<script>
+    $("#checkout-form").submit((e) => {
+    e.preventDefault();
+    
+    let isValid = true;
+    let address = $("#address").val().trim();
+    let pincode = $("#pincode").val().trim();
+    let mobile = $("#mobile").val().trim();
+    let paymentMethod = $("input[name='payment-method']:checked").val();
+
+    // Reset errors
+    $(".text-danger").text("");
+
+    if (address === "") {
+        $("#addressError").text("Address is required.");
+        isValid = false;
+    }
+    if (pincode === "" || isNaN(pincode) || pincode.length !== 6) {
+        $("#pincodeError").text("Enter a valid 6-digit Pincode.");
+        isValid = false;
+    }
+    if (mobile === "" || isNaN(mobile) || mobile.length !== 10) {
+        $("#mobileError").text("Enter a valid 10-digit Mobile Number.");
+        isValid = false;
+    }
+    if (!paymentMethod) {
+        $("#paymentError").text("Select a payment method.");
+        isValid = false;
+    }
+
+    if (isValid) {
+        $.ajax({
+            url: '/place-order',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (response) => {
+                if (response.status) {
+                    if (response.paymentMethod === "ONLINE") {
+                        location.href = '/payment'; // Redirect to payment page for online payments
+                    } else {
+                        location.href = '/order-success'; // Redirect to order success page for COD
+                    }
+                }
+            }
+        });
+    }
+});
+
+</script>
+
+<!-- Custom Styling -->
+<style>
+    /* 🔹 Background */
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+
+    /* 🔹 Checkout Section */
+    .checkout-section {
+        padding: 50px 0;
+    }
+
+    /* 🔹 Form Styling */
+    .form-control {
+        background: rgba(146, 62, 62, 0.1);
+        border: none;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.2);
+        outline: none;
+        box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+    }
+
+    /* 🔹 Checkout Box */
+    .checkout-box {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+    }
+
+    .payment {
+        padding-bottom: 16px;
+    }
+
+    input[type=radio] {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+    }
+
+    label.radio-inline {
+        display: flex;
+        align-items: center;
+    }
+
+    /* 🔹 Custom Button */
+    .btn-glow {
+        background: linear-gradient(45deg, #00d4ff, #007bff);
+        font-size: 14px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        color: white;
+        font-weight: bold;
+        padding: 10px 15px;
+        border: none;
+    }
+
+    .btn-glow:hover {
+        background: linear-gradient(45deg, #00a3cc, #0056b3);
+        box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    }
+
+    /* 🔹 Responsive Design */
+    @media (max-width: 768px) {
+        .form-control {
+            font-size: 14px;
+            padding: 10px;
+        }
+        
+        .btn-glow {
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+    }
+</style>

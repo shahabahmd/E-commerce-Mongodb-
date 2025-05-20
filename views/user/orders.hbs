@@ -1,0 +1,273 @@
+<section class="orders-section">
+    <div class="container mt-5">
+        
+          {{#if orders.length}}
+          <h2 class="text-center fw-bold text-light mb-4">📦 Your Orders</h2>
+        <table class="table orders-table">
+            <thead class="table-header">
+                <tr>
+                    <th scope="col"> Date</th>
+                    <th> Address</th>
+                    <th> Pincode</th>
+                    <th> Mobile</th>
+                    <th scope="col"> Amount</th>
+                    <th scope="col"> Payment</th>
+                    <th> Status</th>
+                    <th> Action</th>
+                </tr>
+            </thead>
+           <tbody>
+    {{#each orders}}
+        <tr>
+            <td>{{this.date}}</td>
+            <td>{{this.deliveryDetails.address}}</td>
+            <td>{{this.deliveryDetails.pincode}}</td>
+            <td>{{this.deliveryDetails.mobile}}</td>
+            <td>₹{{this.totalAmount}}</td>
+            <td>{{this.paymentMethod}}</td>
+            <td class="status">{{this.status}}</td>
+            <td>
+                <a href="/view-order-products/{{this._id}}" class="btn btn-glow">🛍️ View Products</a>
+
+              
+            </td>
+        </tr>
+    {{/each}}
+</tbody>
+
+                          
+        </table>
+           {{else}}
+            <div class="empty-orders text-center">
+                
+                <h3>No orders yet!</h3>
+                <p>Looks like you haven't placed any orders. Start shopping now!</p>
+                <a href="/products" class="btn btn-glow">🛒 Go to Shop</a>
+            </div>
+        {{/if}}
+    </div>
+</section>
+
+y
+  
+
+<!-- Custom Styling -->
+<style>
+    /* 🔹 Background */
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+
+    /* 🔹 Orders Section */
+    .orders-section {
+        padding: 50px 0;
+    }
+
+    /* 🔹 Table Styling */
+    .orders-table {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        color: white;
+    }
+
+    .table-header {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .orders-table th,
+    .orders-table td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .orders-table tbody tr:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* 🔹 Status Color */
+    .status {
+        font-weight: bold;
+        color: #00d4ff;
+    }
+
+    /* 🔹 Custom Button */
+    .btn-glow {
+        background: linear-gradient(45deg, #00d4ff, #007bff);
+        font-size: 14px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        color: white;
+        font-weight: bold;
+        padding: 8px 12px;
+        border: none;
+    }
+
+    .btn-glow:hover {
+        background: linear-gradient(45deg, #00a3cc, #0056b3);
+        box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    }
+
+    /* 🔹 Responsive Design */
+    @media (max-width: 768px) {
+        .orders-table th,
+        .orders-table td {
+            font-size: 14px;
+            padding: 10px;
+        }
+        
+        .btn-glow {
+            font-size: 12px;
+            padding: 6px 10px;
+        }
+    }
+
+
+
+
+
+
+
+    /* Enhanced existing styles */
+.orders-table {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    color: white;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Improved table header */
+.table-header {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 123, 255, 0.2));
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 14px;
+}
+
+/* Status styling with colors */
+.status {
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    min-width: 100px;
+}
+
+td.status:contains("pending") {
+    background-color: #ff9800;
+    color: #000;
+}
+
+td.status:contains("delivered") {
+    background-color: #4caf50;
+    color: white;
+}
+
+td.status:contains("cancelled") {
+    background-color: #f44336;
+    color: white;
+}
+
+td.status:contains("placed") {
+    background-color: #2196f3;
+    color: white;
+}
+
+/* Button styling */
+.btn-warning {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #f57c00, #e65100);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #388e3c, #2e7d32);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+
+/* Page header enhancement */
+.orders-section h2 {
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    letter-spacing: 1.5px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.orders-section h2:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(to right, #00d4ff, #007bff);
+    border-radius: 3px;
+}
+
+/* Action column width */
+.orders-table th:last-child,
+.orders-table td:last-child {
+    min-width: 200px;
+}
+
+/* Price column styling */
+td:nth-child(5) {
+    font-weight: bold;
+    color: #4caf50;
+}
+
+/* Tooltip for star ratings */
+select:hover {
+    cursor: pointer;
+}
+
+/* Animation for row hover */
+.orders-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.orders-table tbody tr:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    position: relative;
+}
+</style>

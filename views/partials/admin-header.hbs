@@ -1,0 +1,94 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+
+        <a class="navbar-brand fw-bold" href="/admin">
+         <img src="/images/logo.png" alt="SHOPPIZON Logo" class="logo">⚙️ Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/view-products"> All Products</a>
+                </li>
+               
+                <li class="nav-item"><a  class="nav-link" href="/admin/orders">📦 View Pending Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="/admin/delivered-orders">✅ Delivered Orders</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/users"> All Users</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link logout-btn" href="/admin/logout"> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- Custom Styling -->
+<style>
+       .logo {
+        width: 70px;  /* Adjust width */
+        height: 70px; /* Maintain aspect ratio */
+    }
+    /* 🔹 Custom Navbar */
+    .custom-navbar {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        padding: 12px 20px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+        font-weight: bold;
+        color: #00d4ff !important;
+    }
+
+    .navbar-nav .nav-link {
+        color: white !important;
+        font-weight: 500;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #00d4ff !important;
+        text-shadow: 0px 0px 8px rgba(0, 212, 255, 0.6);
+    }
+
+    /* 🔹 Logout Button */
+    .logout-btn {
+        background: linear-gradient(45deg, #ff4b2b, #ff416c);
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        color: white !important;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .logout-btn:hover {
+        background: linear-gradient(45deg, #e63e2a, #e62e62);
+        box-shadow: 0px 0px 10px rgba(255, 75, 43, 0.6);
+    }
+
+    /* 🔹 Responsive Design */
+    @media (max-width: 768px) {
+        .navbar-brand {
+            font-size: 18px;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 14px;
+            padding: 8px;
+        }
+
+        .logout-btn {
+            font-size: 14px;
+            padding: 6px 12px;
+        }
+    }
+</style>

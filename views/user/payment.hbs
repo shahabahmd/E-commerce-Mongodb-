@@ -1,0 +1,208 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg p-5">
+                <h2 class="text-center mb-4">Online Payment</h2>
+<div class="text-right mb-4">
+    <h5>Logged in as: 
+        <span class="text-primary">
+            {{#if user}}
+                {{user.Name}}
+            {{else}}
+                Guest
+            {{/if}}
+        </span>
+    </h5>
+</div>
+
+                <!-- Tabs for Payment Methods -->
+                <ul class="nav nav-tabs mb-4" id="paymentTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="card-tab" data-toggle="tab" href="#card" role="tab">💳 Card</a>
+                    </li>
+                    {{!-- <li class="nav-item">
+                        <a class="nav-link" id="upi-tab" data-toggle="tab" href="#upi" role="tab">📱 UPI</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="netbanking-tab" data-toggle="tab" href="#netbanking" role="tab">🏦 Net Banking</a>
+                    </li> --}}
+                </ul>
+
+                <!-- Payment Method Content -->
+                <div class="tab-content">
+                    
+                    <!-- ✅ Card Payment -->
+                    <div class="tab-pane fade show active" id="card" role="tabpanel">
+                        <form id="card-form" action="/payment" method="POST">
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" name="card" id="cardNumber" class="form-control" placeholder="1234 5678 9101 1121" maxlength="19" required>
+                                <small class="text-danger" id="cardError"></small>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Expiry Date</label>
+                                    <input type="text" name="expiry" id="expiry" class="form-control" placeholder="MM/YY" maxlength="5" required>
+                                    <small class="text-danger" id="expiryError"></small>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>CVV</label>
+                                    <input type="text" name="cvv" id="cvv" class="form-control" placeholder="123" maxlength="3" required>
+                                    <small class="text-danger" id="cvvError"></small>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label>Cardholder Name</label>
+                                <input type="text" name="cardholder" id="cardholder" class="form-control" placeholder="Name" required>
+                                <small class="text-danger" id="nameError"></small>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Pay with Card</button>
+                        </form>
+                    </div>
+                    
+                    <!-- ✅ UPI Payment -->
+                 <!--   <div class="tab-pane fade" id="upi" role="tabpanel">
+                        <form id="upi-form" action="/payment-success" method="POST">
+                            <div class="form-group">
+                                <label>UPI ID</label>
+                                <input type="text" name="upi" id="upiId" class="form-control" placeholder="username@upi" required>
+                                <small class="text-danger" id="upiError"></small>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100 mt-3">Pay with UPI</button>
+                        </form>
+                    </div>
+
+                    <!-- ✅ Net Banking -->
+                <!--    <div class="tab-pane fade" id="netbanking" role="tabpanel">
+                        <form id="netbanking-form" action="/payment-success" method="POST">
+                            <div class="form-group">
+                                <label>Select Bank</label>
+                                <select name="bank" id="bank" class="form-control" required>
+                                    <option value="">-- Select Bank --</option>
+                                    <option value="SBI">State Bank of India</option>
+                                    <option value="HDFC">HDFC Bank</option>
+                                    <option value="ICICI">ICICI Bank</option>
+                                    <option value="Axis">Axis Bank</option>
+                                    <option value="Kotak">Kotak Mahindra Bank</option>
+                                </select>
+                                <small class="text-danger" id="bankError"></small>
+                            </div>
+                            <button type="submit" class="btn btn-info w-100 mt-3">Pay with Net Banking</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="/place-order" class="btn btn-secondary">Go Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<script>
+
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', (e) => {
+        let isValid = true;
+        const formId = form.id;
+
+        if (formId === "card-form") {
+            // Get values
+            const cardNumber = document.getElementById("cardNumber").value.trim();
+            const expiry = document.getElementById("expiry").value.trim();
+            const cvv = document.getElementById("cvv").value.trim();
+            const cardholder = document.getElementById("cardholder").value.trim();
+
+            // Reset previous errors
+            document.getElementById("cardError").textContent = "";
+            document.getElementById("expiryError").textContent = "";
+            document.getElementById("cvvError").textContent = "";
+            document.getElementById("nameError").textContent = "";
+
+            // Card number validation
+            if (!/^\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}$/.test(cardNumber)) {
+                document.getElementById("cardError").textContent = "Enter a valid card number.";
+                isValid = false;
+            }
+
+            // Expiry date validation (Format check)
+            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
+                document.getElementById("expiryError").textContent = "Invalid expiry date (MM/YY).";
+                isValid = false;
+            } else {
+                // Expiry date validation (Date check)
+                const [month, year] = expiry.split('/').map(Number);
+                const currentYear = new Date().getFullYear() % 100; // Get last two digits of year
+                const currentMonth = new Date().getMonth() + 1; // Month is zero-based in JS
+
+                if (year < currentYear || (year === currentYear && month < currentMonth)) {
+                    document.getElementById("expiryError").textContent = "Card is expired.";
+                    isValid = false;
+                }
+            }
+
+            // CVV validation
+            if (!/^\d{3}$/.test(cvv)) {
+                document.getElementById("cvvError").textContent = "Invalid CVV.";
+                isValid = false;
+            }
+
+            // Cardholder name validation
+            if (!/^[A-Za-z\s]+$/.test(cardholder)) {
+                document.getElementById("nameError").textContent = "Invalid name format.";
+                isValid = false;
+            }
+        }
+
+        if (!isValid) {
+            e.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+});
+</script>
+
+<!-- ✅ Styling -->
+<style>
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+    }
+  #cardNumber::placeholder {
+        color: rgba(0, 0, 0, 0.3); /* Adjust as needed */
+    }
+     #expiry::placeholder {
+        color: rgba(0, 0, 0, 0.3); /* Adjust as needed */
+    } #cvv::placeholder {
+        color: rgba(0, 0, 0, 0.3); /* Adjust as needed */
+    } #cardholder::placeholder {
+        color: rgba(0, 0, 0, 0.3); /* Adjust as needed */
+    }
+     #upiId::placeholder {
+        color: rgba(0, 0, 0, 0.3); /* Adjust as needed */
+    }
+    .card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 12px;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+    }
+
+    .form-control {
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+</style>

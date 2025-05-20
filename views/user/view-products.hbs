@@ -1,0 +1,212 @@
+<section class="product-listing">
+    <div class="container mt-5">
+        <h2 class="text-center fw-bold text-light mb-4">🛍️ Featured Products</h2>
+        <div class="row justify-content-center">
+            {{#each products}}
+            <div class="col-lg-3 col-md-4 col-sm-6 p-3">
+                <div class="card product-card shadow-lg">
+                    <img class="card-img-top product-image"
+                        src="/product-images/{{this._id}}.jpg"
+                        alt="{{this.Name}}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-light fw-bold">{{this.Name}}</h5>
+                        <p class="card-text text-muted description" id="desc-{{this._id}}">
+                            {{this.Description}}
+                        </p>
+                        <button class="btn btn-link text-info see-more-btn" data-id="{{this._id}}">See More</button>
+                        <p class="card-price fw-bold text-warning">₹{{this.Price}}</p>
+                           <div class="rating">
+        {{#if this.averageRating}}
+            <span class="stars" data-rating="{{this.averageRating}}"></span>
+            <span>({{this.averageRating}}/5)</span>
+        {{else}}
+            <span>No Ratings</span>
+        {{/if}}
+    </div>
+                         
+                        
+                        <!-- Updated Add to Cart Button -->
+                        <button onclick="handleAddToCart('{{this._id}}')" class="btn btn-glow w-100">🛒 Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+
+<section class="about-section mt-5">
+    <div class="container text-center">
+        <h2 class="fw-bold"> About Our Store</h2>
+        <p class="about-text">
+           Welcome to our premier jersey store! We take pride in offering a diverse collection of high-quality jerseys at the most competitive prices. Our mission is to deliver a seamless shopping experience, complemented by exceptional customer service. Whether you're searching for the latest sports jerseys, fan apparel, or exclusive team merchandise, we have you covered.
+        </p>
+        <p class="about-text">
+            Happy shopping with us! <br>  Fast Delivery |  Best Prices | Trusted by Thousands
+        </p>
+    </div>
+</section>
+
+<!-- ✅ JavaScript for Handling Cart Redirection -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.stars').forEach(star => {
+        let rating = star.dataset.rating;
+        let starsHtml = "⭐".repeat(Math.round(rating)) + "☆".repeat(5 - Math.round(rating));
+        star.innerHTML = starsHtml;
+    });
+});
+    function handleAddToCart(productId) {
+        // Check if the user is logged in
+        const isLoggedIn = {{#if user}} true {{else}} false {{/if}};
+
+        if (!isLoggedIn) {
+            // Redirect to login page if user is not logged in
+            window.location.href = "/login";
+        } else {
+            // Call the function to add the product to the cart
+            addToCart(productId);
+        }
+    }
+
+    function addToCart(productId) {
+        // Example AJAX call to add the product to the cart
+        fetch('/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Product added to cart!');
+            } else {
+                alert('Error adding product to cart.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+
+<!-- Custom CSS -->
+<style>
+/* 🔹 About Section Styling */
+.about-section {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    margin-top: 50px;
+}
+
+/* 🔹 About Text */
+.about-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: white;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 🔹 Responsive Design */
+@media (max-width: 768px) {
+    .about-section {
+        padding: 30px;
+    }
+    
+    .about-text {
+        font-size: 10px;
+    }
+}
+
+    /* 🔹 Background */
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+/* 🔹 Truncate text initially */
+.description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: inline-block;
+}
+
+    /* 🔹 Product Listing */
+    .product-listing {
+        padding: 50px 0;
+    }
+
+    /* 🔹 Glassmorphism Card */
+    .product-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease-in-out;
+        padding: 40px;
+    }
+
+    /* 🔹 Product Image */
+    .product-image {
+        height: 160px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* 🔹 Hover Effects */
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.3);
+    }
+
+    /* 🔹 Price Styling */
+    .card-price {
+        font-size: 18px;
+    }
+
+    /* 🔹 Custom Add to Cart Button */
+    .btn-glow {
+        background: linear-gradient(45deg, #00d4ff, #007bff);
+        font-size: 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        color: white;
+        font-weight: bold;
+        padding: 10px;
+        border: none;
+    }
+
+    .btn-glow:hover {
+        background: linear-gradient(45deg, #00a3cc, #0056b3);
+        box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.6);
+    }
+
+    /* 🔹 Responsive Design */
+    @media (max-width: 768px) {
+        .product-card {
+            padding: 15px;
+        }
+    }
+    .product-rating {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin: 10px auto;
+    width: auto;
+    color: #ffd700;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+</style>
